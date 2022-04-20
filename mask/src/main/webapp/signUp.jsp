@@ -119,7 +119,7 @@
     <div id="con">
     <div id="login">
     <div id="login_form"><!--로그인 폼-->
-    <form>
+    <form name="SignUp" action="SignUpAction.jsp" method="post">
         <h3 class="login" style="letter-spacing:-1px;">Sign up to Web</h3>
 
         <!-- <p>
@@ -130,44 +130,57 @@
 
         <!-- <span>ID</span> -->
         <p style="text-align: left; font-size:12px; color:#666">username</p>
-        <input type="text" placeholder="아이디" class="size">
+        <input type="text" placeholder="아이디" class="size" name="Id">
         <p></p>
         </label><!--아이디-->
 
         <label>
         <!-- <span>PW</span> -->
         <p style="text-align: left; font-size:12px; color:#666">Password </p>
-        <input type="password" placeholder="비밀번호" class="size">
+        <input type="password" placeholder="비밀번호" class="size" name="Password">
         </label><!--비밀번호-->
 
         <label>
             <!-- <span>PW</span> -->
             <p style="text-align: left; font-size:12px; color:#666"> </p>
-            <input type="password" placeholder="비밀번호 확인" class="size">
+            <input type="password" placeholder="비밀번호 확인" class="size" name="PasswordCheck">
         </label><!--비밀번호 확인-->
 
         <label>
             <!-- <span>PW</span> -->
         <p style="text-align: left; font-size:12px; color:#666">Mobile Phone</p>
-            <select class="size num1">
+            <select class="size num1" name="teltype">
                 <option value="1" selected>SKT</option>
                 <option value="2" selected>KT</option>
                 <option value="3" selected>LG</option>
+                <option value="4" selected>알뜰폰</option>
             </select>
-            <input placeholder="-빼고 숫자만 입력"  class="size num2" required>
+            <input placeholder="-빼고 숫자만 입력"  class="size num2" required name="Phone">
          </label> <!--전화번호-->
 
 
          <label>
                 <!-- <span>PW</span> -->
             <p style="text-align: left; font-size:12px; color:#666">E-mail</p>
-                <input type="text" placeholder="이메일" class="size">
+                <input type="text" placeholder="이메일" class="size" name="Email">
         </label> <!--이메일-->  
+        <label>
+        	<!--<span>address</span> -->
+        	<p style="text-align: left; font-size:12px; color:#666">address</p>
+                <input type="text" placeholder="주소" class="size" name="Address">
+        	
+        </label>
+        <label>
+        	<!--<span>address</span> -->
+        	<p style="text-align: left; font-size:12px; color:#666">address</p>
+                <input type="text" placeholder="상세주소" class="size" name="d_Address">
+        	
+        </label>
 
 
     <br>
         <p>
-            <input type="submit" value="Create Acoout" class="btn">
+            <input type="submit" value="Create Acoout" class="btn" id="Create">
             
         </p>
     </form>
