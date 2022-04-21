@@ -1,3 +1,4 @@
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -9,11 +10,11 @@
 	String UserId = request.getParameter("Id");
 	String UserPassword = request.getParameter("Password");
 	String UserName = request.getParameter("Name");
-	String UserPhoneNumber = request.getParameter("phone");
+	String UserPhoneNumber = request.getParameter("Phone");
 	String UserAddress = request.getParameter("Address");
 	String UserDetailAddress = request.getParameter("d_Address");
 	String UserTelType = request.getParameter("teltype");
-	String UserEmail = request.getParameter("Email");
+	String UserEmail = request.getParameter("Email"); 
 	
 	// 1.변수선언
 	String url = "jdbc:mariadb://58.229.253.250:3306/student05";
@@ -22,7 +23,7 @@
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	
-	String sql = "INSERT INTO USER VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	String sql = "INSERT INTO USER (UserId, UserPassword, UserName, UserPhoneNumber, UserTelType, UserAddress, UserDetailAddress, UserEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	try{
 		// 1. 드라이버 로드
@@ -32,15 +33,15 @@
 		conn = DriverManager.getConnection(url, uid, upw);
 		
 		// 3. pstmt 생성
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, UserId);
+		 pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, UserId); 
 		pstmt.setString(2, UserPassword);
 		pstmt.setString(3, UserName);
 		pstmt.setString(4, UserPhoneNumber);
 		pstmt.setString(5, UserAddress);
 		pstmt.setString(6, UserDetailAddress);
 		pstmt.setString(7, UserTelType);
-		pstmt.setString(8, UserEmail);
+		pstmt.setString(8, UserEmail); 
 
 		
 		
@@ -50,8 +51,12 @@
 		int result = pstmt.executeUpdate();
 		
 		if(result == 1){ // 성공
+			JOptionPane aa=new JOptionPane();
+			aa.showMessageDialog(null, "회원가입 성공");
 			response.sendRedirect("main.jsp");
 		} else{ // 실패
+			JOptionPane aa=new JOptionPane();
+			aa.showMessageDialog(null, "회원가입 실패");
 			response.sendRedirect("signUp.jsp");
 		}
 		
@@ -65,5 +70,4 @@
 			e.printStackTrace();
 		}
 	}
-
 %>

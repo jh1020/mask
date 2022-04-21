@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+	
+
  <style>
         /* @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css'); */
         @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
@@ -115,23 +117,18 @@
         }
         
     </style>
+    
 <body>
+
     <div id="con">
     <div id="login">
     <div id="login_form"><!--로그인 폼-->
     <form name="SignUp" action="SignUpAction.jsp" method="post">
         <h3 class="login" style="letter-spacing:-1px;">Sign up to Web</h3>
 
-        <!-- <p>
-            <input type="submit" value="Sign in with Google" class="btn" style="background-color:#217Af0">
-        </p> 구글로 로그인-->
-
-        <hr>
-
         <!-- <span>ID</span> -->
-        <p style="text-align: left; font-size:12px; color:#666">username</p>
+        <p style="text-align: left; font-size:12px; color:#666">UserId</p>
         <input type="text" placeholder="아이디" class="size" name="Id">
-        <p></p>
         </label><!--아이디-->
 
         <label>
@@ -140,12 +137,6 @@
         <input type="password" placeholder="비밀번호" class="size" name="Password">
         </label><!--비밀번호-->
 
-        <label>
-            <!-- <span>PW</span> -->
-            <p style="text-align: left; font-size:12px; color:#666"> </p>
-            <input type="password" placeholder="비밀번호 확인" class="size" name="PasswordCheck">
-        </label><!--비밀번호 확인-->
-        
         <label>
             <!-- <span>Name</span> -->
             <p style="text-align: left; font-size:12px; color:#666"> 이름</p>
@@ -186,7 +177,7 @@
 
     <br>
         <p>
-            <input type="submit" value="Create Acoout" class="btn" id="Create">
+            <input type="submit" value="회원가입" class="btn">
             
         </p>
     </form>
