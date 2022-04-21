@@ -145,6 +145,12 @@
             <p style="text-align: left; font-size:12px; color:#666"> </p>
             <input type="password" placeholder="비밀번호 확인" class="size" name="PasswordCheck">
         </label><!--비밀번호 확인-->
+        
+        <label>
+            <!-- <span>Name</span> -->
+            <p style="text-align: left; font-size:12px; color:#666"> 이름</p>
+            <input type="text" placeholder="이름" class="size" name="Name">
+        </label><!--이름-->
 
         <label>
             <!-- <span>PW</span> -->
@@ -172,7 +178,7 @@
         </label>
         <label>
         	<!--<span>address</span> -->
-        	<p style="text-align: left; font-size:12px; color:#666">address</p>
+        	<p style="text-align: left; font-size:12px; color:#666">Detail address</p>
                 <input type="text" placeholder="상세주소" class="size" name="d_Address">
         	
         </label>

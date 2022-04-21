@@ -6,13 +6,15 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
-	String Id = request.getParameter("Id");
-	String Password = request.getParameter("Password");
-	String Name = request.getParameter("Name");
-	String Phone = request.getParameter("phone");
-	String Address = request.getParameter("Address");
-	String d_Address = request.getParameter("DtailAddress");	
-	/*
+	String UserId = request.getParameter("Id");
+	String UserPassword = request.getParameter("Password");
+	String UserName = request.getParameter("Name");
+	String UserPhoneNumber = request.getParameter("phone");
+	String UserAddress = request.getParameter("Address");
+	String UserDetailAddress = request.getParameter("d_Address");
+	String UserTelType = request.getParameter("teltype");
+	String UserEmail = request.getParameter("Email");
+	
 	// 1.변수선언
 	String url = "jdbc:mariadb://58.229.253.250:3306/student05";
 	String uid = "student05";
@@ -20,7 +22,7 @@
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	
-	String sql = "insert into USER values(?, ?, ?, ?, ?, ?)";
+	String sql = "INSERT INTO USER VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	try{
 		// 1. 드라이버 로드
@@ -31,12 +33,16 @@
 		
 		// 3. pstmt 생성
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, Id);
-		pstmt.setString(2, Password);
-		pstmt.setString(3, Name);
-		pstmt.setString(4, Phone);
-		pstmt.setString(5, Address);
-		pstmt.setString(5, d_Address);
+		pstmt.setString(1, UserId);
+		pstmt.setString(2, UserPassword);
+		pstmt.setString(3, UserName);
+		pstmt.setString(4, UserPhoneNumber);
+		pstmt.setString(5, UserAddress);
+		pstmt.setString(6, UserDetailAddress);
+		pstmt.setString(7, UserTelType);
+		pstmt.setString(8, UserEmail);
+
+		
 		
 
 		
@@ -46,7 +52,7 @@
 		if(result == 1){ // 성공
 			response.sendRedirect("main.jsp");
 		} else{ // 실패
-			response.sendRedirect("join_fail.jsp");
+			response.sendRedirect("signUp.jsp");
 		}
 		
 	} catch(Exception e){
@@ -61,5 +67,3 @@
 	}
 
 %>
-
-
