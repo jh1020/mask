@@ -1,75 +1,50 @@
-<%@page import="java.sql.DriverManager"%>
-<%@page import="javax.swing.JOptionPane"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@ page import="User.UserDAO"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="user.UserDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:useBean id="user" class="user.User" scope="page" />
+<jsp:setProperty name="user" property="userId" />
+<jsp:setProperty name="user" property="userPassword" />
 <!DOCTYPE html>
 <html>
 <head>
-<title>·Î±×ÀÎ Ã³¸® JSP</title>
+<meta charset="UTF-8">
+<title>JSP ê²Œì‹œíŒ ì›¹ ì‚¬ì´íŠ¸</title>
 </head>
 <body>
+	
 	<%
-        // ÀÎÄÚµù Ã³¸®
-        request.setCharacterEncoding("euc-kr"); 
-        
-        // ·Î±×ÀÎ È­¸é¿¡ ÀÔ·ÂµÈ ¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£¸¦ °¡Á®¿Â´Ù
-        String UserId= request.getParameter("id");
-        String UserPassword = request.getParameter("pw");
-        
-     // 1.º¯¼ö¼±¾ğ
-    	String url = "jdbc:mariadb://58.229.253.250:3306/student05";
-    	String uid = "student05";
-    	String upw = "1234!!";
-    	Connection conn = null;
-    	PreparedStatement pstmt = null;
-    	ResultSet rs;
-        
-    	String sql = "select UserPassword from USER where UserId = ?";
-    	
-    	try{
-    		// µå¶óÀÌ¹ö È£Ãâ
-    		Class.forName("oracle.jdbc.driver.OracleDriver");
-    		
-    		// conn »ı¼º
-    		conn = DriverManager.getConnection(url, uid, upw);
-    		
-    		// pstmt »ı¼º
-    		pstmt = conn.prepareStatement(sql);
-    		pstmt.setString(1, UserId);
-    		pstmt.setString(2, UserPassword);
-    		
-    		// sql½ÇÇà
-    		rs = pstmt.executeQuery();
-    		
-    		if(rs.next()){ // ·Î±×ÀÎ ¼º°ø(ÀÎÁõÀÇ ¼ö´Ü session)
-    			UserId = rs.getString("id");
-    			String name = rs.getString("name");
-    		
-    			session.setAttribute("user_id", UserId);
-    			session.setAttribute("user_name", name);
-    			
-    			response.sendRedirect("main.jsp"); // ÆäÀÌÁöÀÌµ¿
-    			
-    		} else{ // ·Î±×ÀÎ ½ÇÆĞ
-    			response.sendRedirect("login_fail.jsp"); // ½ÇÆĞ ÆäÀÌÁö
-    		}
-    	} catch(Exception e){
-    		e.printStackTrace();
-    		response.sendRedirect("login.jsp"); // ¿¡·¯°¡ ³­ °æ¿ìµµ ¸®´ÙÀÌ·ºÆ®
-    	} finally{
-    		try{
-    			if(conn != null) conn.close();
-    			if(pstmt != null) pstmt.close();
-    		} catch(Exception e){
-    			e.printStackTrace();
-    		}
-    	}
-    		
-        
-        %>
+	
+		UserDAO userDAO = new UserDAO();
+		int result = userDAO.login(user.getUserId(), user.getUserPassword());
+		if(result == 1){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('ë¡œê·¸ì¸ ì„±ê³µ')");
+			script.println("location.href='main.jsp'");
+			script.println("</script>");
+		}else if(result == 0){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤')");
+			script.println("history.back()");
+			script.println("</script>");
+		}else if(result == -1){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤')");
+			script.println("history.back()");
+			script.println("</script>");
+		}else if(result == -2){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜ì…ë‹ˆë‹¤')");
+			script.println("history.back()");
+			script.println("</script>");
+		}
+		
+		%>
+		
 </body>
 </html>

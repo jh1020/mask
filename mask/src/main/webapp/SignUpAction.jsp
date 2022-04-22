@@ -1,73 +1,50 @@
-<%@page import="javax.swing.JOptionPane"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="user.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-
-	String UserId = request.getParameter("Id");
-	String UserPassword = request.getParameter("Password");
-	String UserName = request.getParameter("Name");
-	String UserPhoneNumber = request.getParameter("Phone");
-	String UserAddress = request.getParameter("Address");
-	String UserDetailAddress = request.getParameter("d_Address");
-	String UserTelType = request.getParameter("teltype");
-	String UserEmail = request.getParameter("Email"); 
-	
-	// 1.변수선언
-	String url = "jdbc:mariadb://58.229.253.250:3306/student05";
-	String uid = "student05";
-	String upw = "1234!!";
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	
-	String sql = "INSERT INTO USER (UserId, UserPassword, UserName, UserPhoneNumber, UserTelType, UserAddress, UserDetailAddress, UserEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-	
-	try{
-		// 1. 드라이버 로드
-		Class.forName("org.mariadb.jdbc.Driver");
-		
-		// 2. conn 생성
-		conn = DriverManager.getConnection(url, uid, upw);
-		
-		// 3. pstmt 생성
-		 pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, UserId); 
-		pstmt.setString(2, UserPassword);
-		pstmt.setString(3, UserName);
-		pstmt.setString(4, UserPhoneNumber);
-		pstmt.setString(5, UserAddress);
-		pstmt.setString(6, UserDetailAddress);
-		pstmt.setString(7, UserTelType);
-		pstmt.setString(8, UserEmail); 
-
-		
-		
-
-		
-		// 4. sql문 실행
-		int result = pstmt.executeUpdate();
-		
-		if(result == 1){ // 성공
-			JOptionPane aa=new JOptionPane();
-			aa.showMessageDialog(null, "회원가입 성공");
-			response.sendRedirect("main.jsp");
-		} else{ // 실패
-			JOptionPane aa=new JOptionPane();
-			aa.showMessageDialog(null, "회원가입 실패");
-			response.sendRedirect("signUp.jsp");
-		}
-		
-	} catch(Exception e){
-		e.printStackTrace();
-	} finally{
-		try{
-			if(conn != null) conn.close();
-			if(pstmt != null) pstmt.close();
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-%>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:useBean id="user" class="user.User" scope="page" />
+<jsp:setProperty name="user" property="userId" />
+<jsp:setProperty name="user" property="userPassword" />
+<jsp:setProperty name="user" property="userName" />
+<jsp:setProperty name="user" property="userPhoneNumber" />
+<jsp:setProperty name="user" property="userEmail" />
+<jsp:setProperty name="user" property="userAddress" />
+<jsp:setProperty name="user" property="userDetailAddress" />
+<jsp:setProperty name="user" property="userTelType" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JSP 게시판 웹 사이트</title>
+</head>
+<body>
+	<%
+		 if(user.getUserId() == null || user.getUserPassword() == null || user.getUserName() == null ||
+			user.getUserPhoneNumber() == null || user.getUserEmail() == null || user.getUserAddress() == null || 
+			user.getUserDetailAddress() == null  || user.getUserTelType() == null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('입력이 안 된 사항이 있습니다')");
+			script.println("history.back()");
+			script.println("</script>");
+		}else{
+			UserDAO userDAO = new UserDAO();
+			int result = userDAO.join(user);
+			if(result == -1){
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('이미 존재하는 아이디입니다')");
+				script.println("history.back()");
+				script.println("</script>");
+			}else {
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('회원가입 성공')");
+				script.println("location.href='main.jsp'");
+				script.println("</script>");
+			}
+		} 
+	%>
+</body>
+</html>

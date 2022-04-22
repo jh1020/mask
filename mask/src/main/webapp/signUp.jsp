@@ -128,49 +128,49 @@
 
         <!-- <span>ID</span> -->
         <p style="text-align: left; font-size:12px; color:#666">UserId</p>
-        <input type="text" placeholder="아이디" class="size" name="Id">
+        <input type="text" placeholder="아이디" class="size" name="userId">
         </label><!--아이디-->
 
         <label>
         <!-- <span>PW</span> -->
         <p style="text-align: left; font-size:12px; color:#666">Password </p>
-        <input type="password" placeholder="비밀번호" class="size" name="Password">
+        <input type="password" placeholder="비밀번호" class="size" name="userPassword">
         </label><!--비밀번호-->
 
         <label>
             <!-- <span>Name</span> -->
             <p style="text-align: left; font-size:12px; color:#666"> 이름</p>
-            <input type="text" placeholder="이름" class="size" name="Name">
+            <input type="text" placeholder="이름" class="size" name="userName">
         </label><!--이름-->
 
         <label>
             <!-- <span>PW</span> -->
         <p style="text-align: left; font-size:12px; color:#666">Mobile Phone</p>
-            <select class="size num1" name="teltype">
+            <select class="size num1" name="userTelType">
                 <option value="1" selected>SKT</option>
                 <option value="2" selected>KT</option>
                 <option value="3" selected>LG</option>
                 <option value="4" selected>알뜰폰</option>
             </select>
-            <input placeholder="-빼고 숫자만 입력"  class="size num2" required name="Phone">
+            <input placeholder="-빼고 숫자만 입력"  class="size num2" required name="userPhoneNumber">
          </label> <!--전화번호-->
 
 
          <label>
                 <!-- <span>PW</span> -->
             <p style="text-align: left; font-size:12px; color:#666">E-mail</p>
-                <input type="text" placeholder="이메일" class="size" name="Email">
+                <input type="text" placeholder="이메일" class="size" name="userEmail">
         </label> <!--이메일-->  
         <label>
         	<!--<span>address</span> -->
         	<p style="text-align: left; font-size:12px; color:#666">address</p>
-                <input type="text" placeholder="주소" class="size" name="Address">
+                <input type="text" placeholder="주소" class="size" name="userAddress">
         	
         </label>
         <label>
         	<!--<span>address</span> -->
         	<p style="text-align: left; font-size:12px; color:#666">Detail address</p>
-                <input type="text" placeholder="상세주소" class="size" name="d_Address">
+                <input type="text" placeholder="상세주소" class="size" name="userDetailAddress">
         	
         </label>
 
