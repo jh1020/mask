@@ -57,7 +57,7 @@ color:green
 	</table>
 	
 	<table width="1000" height="300">
-	<th></th>
+	<th></th> 
 	</table>
 	
 	<table width="1000" height="500" align="center">

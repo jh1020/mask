@@ -26,8 +26,8 @@
 	bottom: 0px;
 	display: flex;
 	width: auto;
-	margin-left: 16%;
-	margin-right: 16%;
+	margin-left: 5%;
+	margin-right: 5%;
 }
 
 .wrap {
@@ -96,9 +96,16 @@ a {
 	left: 95%;
 	transform: translateX(-100%);
 }
+
+
+
 </style>
 
 <body>
+	
+
+
+
 <table id="wrap" role="main">
 	<nav class="navbar  navbar-expand-sm container_navbar">
 		<a class="navbar-brand" href="main.jsp">마스크</a>
@@ -110,13 +117,33 @@ a {
 				</li>
 				<li class="nav-item"><a class="nav-link" href="func.jsp">기능</a>
 				</li>
+				<li class="nav-item"><a class="nav-link" href="brand1.jsp">브랜드</a>
+				</li>
 			</ul>
 		</div>
-		<div class="loginBtn navbar-nav ">
+		<%
+		if(session.getAttribute("userId")==null) {
+			%>
+			<div class="loginBtn navbar-nav ">
 			<input type="button" value="로그인" id="login"
 				onclick="location.href='login.jsp'" /> <input type="button"
 				value="회원가입" id="signUpBtn" onclick="location.href='signUp.jsp'" />
 		</div>
+		<%
+		}else {
+			%>
+			<div class="loginBtn navbar-nav ">
+			<input type="button" value="마이페이지" id="login"
+				onclick="location.href='login.jsp'" /> <input type="button"
+				value="장바구니" id="signUpBtn" onclick="location.href='signUp.jsp'" />
+		</div>
+		}
+		<%
+	
+	
+	
+	%>
+		
 	</nav>
 <div>
 	<div class="carousel_position">
@@ -179,15 +206,22 @@ a {
 		</div>
 	</div>
 	
-		<div class="brand_images_size">
-			<a href="brand1.jsp" class="brand_images"> <img
-				src="images/brand1.png" height="200px" width="400px" alt="brand1">
-			</a> <a href="brand2.jsp" class="brand_images"> <img
-				src="images/brand2.png" height="200px" width="400px" alt="brand2">
-			</a> <a href="brand3.jsp" class="brand_images"> <img
-				src="images/brand3.png" height="200px" width="400px" alt="brand3">
+
+		<div class="brand_images_size" >
+			<a href="brandA.jsp" class="brand_images"> <img
+				src="images/airdays.jpg" height="200px" width="300px" alt="brand1">
+			</a> <a href="brandB.jsp" class="brand_images"> <img
+				src="images/aer.jpg" height="200px" width="300px" alt="brand2">
+			</a> <a href="brandC.jsp" class="brand_images"> <img
+				src="images/charmzone.jpg" height="200px" width="300px" alt="brand3">
+			</a> <a href="brandD.jsp" class="brand_images"> <img
+				src="images/sinotex.png" height="200px" width="300px" alt="brand4">
+			</a>
+	 		<a href="brandE.jsp" class="brand_images"> <img
+				src="images/under.jpg" height="200px" width="300px" alt="brand5">
 			</a>
 		</div>
+		
 </table>
 
 </body>
