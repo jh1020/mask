@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ page import="user.BrandDAO"%>
+<%@ page import="user.Brand"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +59,7 @@ color:green
 	</table>
 	
 	<table width="1000" height="300">
-	<th></th> 
+	<th></th>
 	</table>
 	
 	<table width="1000" height="500" align="center">

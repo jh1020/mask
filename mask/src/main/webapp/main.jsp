@@ -127,18 +127,20 @@ a {
 			<div class="loginBtn navbar-nav ">
 			<input type="button" value="로그인" id="login"
 				onclick="location.href='login.jsp'" /> <input type="button"
-				value="회원가입" id="signUpBtn" onclick="location.href='signUp.jsp'" />
+				value="회원가입" id="signUp" onclick="location.href='signUp.jsp'" />
 		</div>
 		<%
 		}else {
 			%>
 			<div class="loginBtn navbar-nav ">
-			<input type="button" value="마이페이지" id="login"
-				onclick="location.href='login.jsp'" /> <input type="button"
-				value="장바구니" id="signUpBtn" onclick="location.href='signUp.jsp'" />
+			
+			<input type="button" value="마이페이지" id="myPageBtn"
+				onclick="location.href='myPage.jsp'" /> <input type="button"
+				value="장바구니" id="goBasketBtn" onclick="location.href='basket.jsp'" />
 		</div>
-		}
 		<%
+		}
+		
 	
 	
 	

@@ -1,18 +1,73 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ page import="user.BrandDAO"%>
+<%@ page import="user.Brand"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1"> 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script> 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script> 
-<title>ë§ˆìŠ¤í¬ ìƒ‰ìƒ</title>
+<meta charset="EUC-KR">
+<title>¸¶½ºÅ© »ö»ó</title>
 </head>
+
+<style>
+
+table{
+border-color :pink;
+}
+
+table,tr,td,th{
+	border-collapse: collapse;
+}
+
+a{
+text-decoration-line: none;
+}
+
+a:link{
+color :pink;
+}
+
+a:visited{
+color :pink;
+}
+
+a:hover {
+color :red;
+}
+
+a:active {
+color:green
+}
+
+
+
+
+
+</style>
+
+
 <body>
-	<a href="main.jsp" data-rel="external" id="main">ë©”ì¸í™”ë©´ìœ¼ë¡œ ê°€ê¸°</a>
-	<h2 align="center">ë§ˆìŠ¤í¬ ìƒ‰ìƒ</h2>
+<a href="main.jsp" data-rel="external" id="main">¸ŞÀÎÈ­¸éÀ¸·Î °¡±â</a>
+	<h2 align="center">¸¶½ºÅ© »ö»ó</h2>
+	
+	<table border="1" width="1000" height="50" align ="center">
+		<th><a href="white.jsp">Èò»ö</a> </th>
+		<th><a href="black.jsp">°ËÁ¤»ö</a> </th>
+		<th><a href="gray.jsp">È¸»ö</a> </th>
+		<th><a href="pink.jsp">ÇÎÅ©»ö</a> </th>
+		<th><a href="colorful.jsp">Çü±¤»ö</a> </th>
+		
+	</table>
+	
+	<table width="1000" height="300">
+	<th></th>
+	</table>
+	
+	<table width="1000" height="500" align="center">
+	<td><img src="images/mask_color.jpg" width="300" height="200">
+	<td> ¸¶½ºÅ© »ö»ó ´ëÇÑ ¼³¸í / ÆĞ¼Ç¸¶½ºÅ© / ¿¹»İ°ú¸ÚÁü ¾ÈÀü µÑ´Ù Ã¥ÀÓÁú ¼ö ÀÖ´Ù
+	</td>
+	
+	</table>
 </body>
 </html>
