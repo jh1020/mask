@@ -119,6 +119,8 @@ a {
 				</li>
 				<li class="nav-item"><a class="nav-link" href="brand1.jsp">브랜드</a>
 				</li>
+				<li class="nav-item"><a class="nav-link" href="ReviewBoard.jsp">후기</a>
+				</li>
 			</ul>
 		</div>
 		<%
@@ -136,7 +138,7 @@ a {
 			
 			<input type="button" value="마이페이지" id="myPageBtn"
 				onclick="location.href='myPage.jsp'" /> <input type="button"
-				value="장바구니" id="goBasketBtn" onclick="location.href='basket.jsp'" />
+				value="로그아웃" id="logoutBtn" onclick="location.href='logout.jsp'" />
 		</div>
 		<%
 		}

@@ -22,7 +22,7 @@
 	<%
 		 if(user.getUserId() == null || user.getUserPassword() == null || user.getUserName() == null ||
 			user.getUserPhoneNumber() == null || user.getUserEmail() == null || user.getUserAddress() == null || 
-			user.getUserDetailAddress() == null  || user.getUserTelType() == null){
+			user.getUserDetailAddress() == null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('입력이 안 된 사항이 있습니다')");

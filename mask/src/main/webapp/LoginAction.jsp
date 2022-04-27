@@ -19,12 +19,13 @@
 		UserDAO userDAO = new UserDAO();
 		int result = userDAO.login(user.getUserId(), user.getUserPassword());
 		if(result == 1){
+			session.setAttribute("userId", user.getUserId());
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('로그인 성공')");
 			script.println("location.href='main.jsp'");
 			script.println("</script>");
-			session.setAttribute("userId", user.getUserId());
+			
 		}else if(result == 0){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");

@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import jakarta.websocket.Session;
+
 public class UserDAO {
 	
 	private Connection conn; //자바와 데이터베이스를 연결
@@ -53,10 +55,13 @@ public class UserDAO {
 			    pstmt.setString(2, user.getUserPassword());
 			    pstmt.setString(3, user.getUserName());
 			    pstmt.setString(4, user.getUserPhoneNumber());
-			    pstmt.setString(5, user.getUserEmail());
+			    pstmt.setInt(5, user.getUserTelType());
 			    pstmt.setString(6, user.getUserAddress());
 			    pstmt.setString(7, user.getUserDetailAddress());
-			    pstmt.setString(8, user.getUserTelType());
+			    pstmt.setString(8, user.getUserEmail());
+			    
+			    
+			   
 
 			    return pstmt.executeUpdate();
 			  }catch (Exception e) {
@@ -64,6 +69,37 @@ public class UserDAO {
 			  }
 			  return -1;
 			}
-		
+		//마이 페이지
+				public User getUser(String userId) {
+					String sql = "select userName, userPhoneNumber, userTelType, userAddress, userDetailAddress, userEmail, userCancel, userExchange, userReturn, userOrder, userDeposit, userDelivery, userDeliveryRequest, userCoupon, userPoint from USER where userId = ?;";
+					try {
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, userId);
+						rs = pstmt.executeQuery();
+						if(rs.next()) {
+							User user = new User();
+							user.setUserName(rs.getString(1));
+							user.setUserPhoneNumber(rs.getString(2));
+							user.setUserTelType(rs.getInt(3));
+							user.setUserAddress(rs.getString(4));
+							user.setUserDetailAddress(rs.getString(5));
+							user.setUserEmail(rs.getString(6));
+							user.setUserCancel(rs.getInt(7));
+							user.setUserExchange(rs.getInt(8));
+							user.setUserReturn(rs.getInt(9));
+							user.setUserOrder(rs.getInt(10));
+							user.setUserDeposit(rs.getInt(11));
+							user.setUserDelivery(rs.getInt(12));
+							user.setUserDeliveryRequest(rs.getString(13));
+							user.setUserCoupon(rs.getInt(14));
+							user.setUserPoint(rs.getInt(15));
+							return user;
+						}
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
+					return null;
+		}
+
 	
 }

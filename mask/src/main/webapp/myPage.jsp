@@ -232,54 +232,39 @@ div {
 }
 </style>
 <body>
-	<%
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-
-	Class.forName("com.mysql.jdbc.Driver");
-	
-	String dbURL = "jdbc:mariadb://58.229.253.250:3306/student05";
-	String dbID = "student05";
-	String dbPassword = "1234!!";
-	Class.forName("org.mariadb.jdbc.Driver");
-	
-	conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-	
-	
-	
-	if(session.getAttribute("userId") != null){
-		String userId = "userId";
-		pstmt = conn.prepareStatement("SELECT *FROM tb_member WHERE "+userId+"=?");
-		pstmt.setString(1, "userId");
-	}else {
-		%>오류입니다<%
+	<% 
+	String userId = null;
+	if(session.getAttribute("userId") != null) {
+		userId = (String)session.getAttribute("userId");
 	}
 	
-	
-	rs = pstmt.executeQuery();
+	User bbs = new UserDAO().getUser(userId);
 	
 	%>
 	<div class="wrap">
 		<div class="greenContainer">
 			<div>
-				<div class="id"><%=%></div>
-				<div class="name">Jaden</div>
+				<div class="id"><%= session.getAttribute("userId")%></div>
+				<div class="name"><%= bbs.getUserName() %> 님</div>
 			</div>
-			<div class="modify">i</div>
+			
 		</div>
 		<div class="summaryContainer">
 			<div class="item">
-				<div class="number">354</div>
-				<div>단골상점</div>
+				<div class="number"><%= bbs.getUserOrder() %></div>
+				<div>주문</div>
 			</div>
 			<div class="item">
-				<div class="number">354</div>
-				<div>상품후기</div>
+				<div class="number"><%= bbs.getUserCancel() %></div>
+				<div>취소</div>
 			</div>
 			<div class="item">
-				<div class="number">354</div>
-				<div>적립금(BLCT)</div>
+				<div class="number"><%= bbs.getUserReturn() %></div>
+				<div>반품</div>
+			</div>
+			<div class="item">
+				<div class="number"><%= bbs.getUserExchange() %></div>
+				<div>교환</div>
 			</div>
 		</div>
 		<div class="shippingStatusContainer">
@@ -288,30 +273,27 @@ div {
 
 				<div class="item">
 					<div>
-						<div class="green number">6</div>
-						<div class="text">장바구니</div>
-					</div>
-					<div class="icon">></div>
-				</div>
-				<div class="item">
-					<div>
-						<div class="number">0</div>
+						<div class="green number"><%= bbs.getUserDeposit() %></div>
 						<div class="text">결제완료</div>
 					</div>
 					<div class="icon">></div>
 				</div>
 				<div class="item">
 					<div>
-						<div class="green number">1</div>
-						<div class="text">배송중</div>
+						<div class="number"><%= bbs.getUserOrder() - bbs.getUserDeposit() %></div>
+						<div class="text">결제대기</div>
 					</div>
 					<div class="icon">></div>
 				</div>
 				<div class="item">
 					<div>
-						<div class="green number">3</div>
-						<div class="text">구매확정</div>
+						<div class="green number"><%= bbs.getUserDelivery() %></div>
+						<div class="text">배송중</div>
 					</div>
+					<div class="icon">></div>
+				</div>
+				<div class="item">
+					
 				</div>
 
 			</div>
@@ -364,15 +346,10 @@ div {
 			</a>
 		</div>
 		<div class="infoContainer">
-			<a href="#" class="item">
-				<div>icon</div>
-				<div>공지사항</div>
-			</a> <a href="#" class="item">
-				<div>icos</div>
-				<div>이용안내</div>
-			</a> <a href="#" class="item">
-				<div>icon</div>
-				<div>고객센터</div>
+			<a href="main.jsp" class="item">
+				<div>메인으로</div>
+			</a> <a href="logout.jsp" class="item">
+				<div>로그아웃</div>
 			</a>
 		</div>
 	</div>

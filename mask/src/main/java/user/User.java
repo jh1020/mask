@@ -8,7 +8,7 @@ public class User {
 	private String userPhoneNumber;
 	private String userAddress;
 	private String userDetailAddress;
-	private String userTelType;
+	private int userTelType;
 	private String userEmail;
 	private int userCancel;
 	private int userExchange;
@@ -68,11 +68,11 @@ public class User {
 		this.userDetailAddress = userDetailAddress;
 	}
 
-	public String getUserTelType() {
+	public int getUserTelType() {
 		return userTelType;
 	}
 
-	public void setUserTelType(String userTelType) {
+	public void setUserTelType(int userTelType) {
 		this.userTelType = userTelType;
 	}
 
