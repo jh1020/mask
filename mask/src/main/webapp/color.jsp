@@ -63,8 +63,9 @@ color:green
 	<th></th>
 	</table>
 	
+	
 	<table width="1000" height="500" align="center">
-	<td><img src="images/mask_color.jpg" width="300" height="200">
+	<td><img src="images/mask_color.jpg" width="300" height="200" align="middle">
 	<td> 마스크 색상 대한 설명 / 패션마스크 / 예쁨과멋짐 안전 둘다 책임질 수 있다
 	</td>
 	

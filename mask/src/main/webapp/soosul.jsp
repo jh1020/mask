@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="user.BrandDAO"%>
-<%@ page import="user.Brand"%>
+<%@ page import="user.FuncDAO"%>
+<%@ page import="user.Func"%>
 <%@ page import ="java.util.Vector"%>
 <!DOCTYPE html>
 <html>
@@ -12,12 +12,18 @@
 
 <style>
 
-table{
-border-color :pink;
-}
-
-table,tr,td,th{
+	
+	table{
+	margin-left:auto;
+	margin-right:auto;
+	border-color :pink;
+	}
+	
+	table,tr,td,th{
 	border-collapse: collapse;
+}
+th,td{
+	text-align:center;
 }
 
 a{
@@ -40,10 +46,6 @@ a:active {
 color:green
 }
 
-
-
-
-
 </style>
 
 
@@ -60,6 +62,37 @@ color:green
 		
 	</table>
 	
-	<table width="1000" height="300">
+	<table width="1000" height="100">
 	<th></th>
 	</table>
+	
+	<%
+	FuncDAO funcDAO = new FuncDAO();
+	Vector<Func> vec = funcDAO.getAllFunc(3);
+
+	%>
+	
+	<% 
+			for(int i=0;i < vec.size();i++){
+				Func func = vec.get(i);// 벡터에 저장되어있는 빈 클래스 하나씩 추출 
+			%>
+		<table border="1" width="1000" height="200" align ="center">
+	
+			<tr>
+			<td rowspan=2> <img width=30% height="100" src="<%=func.getImg()%>"></td>
+			<td colspan=2> <%=func.getTitle()%></td>
+			</tr>
+			
+			<tr>
+			<td><%=func.getPrice() %></td>
+			</tr>
+			
+			</table>	
+			
+			<%
+			} %>
+			
+		
+				
+</body>
+</html>

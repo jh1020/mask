@@ -79,7 +79,7 @@ color:green
 	
 			<tr>
 			<td rowspan=2> <img width=30% height="100" src="<%=brand.getImg()%>"></td>
-			<td colspan=2> <%=brand.getTitle()%></td>
+			<td colspan=2><a href="productinfo.jsp?info=<%=brand.getProductinfoid() %>&info1=1"> <%=brand.getTitle()%></a></td>
 			</tr>
 			
 			<tr>
