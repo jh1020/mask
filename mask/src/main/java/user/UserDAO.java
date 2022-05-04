@@ -31,24 +31,25 @@ public class UserDAO {
 		public int login(String userId, String userPassword) {
 			String sql = "select userPassword from USER where userId = ?";
 			try {
-				pstmt = conn.prepareStatement(sql); //sql쿼리문을 대기 시킨다
-				pstmt.setString(1, userId); //첫번째 '?'에 매개변수로 받아온 'userID'를 대입
-				rs = pstmt.executeQuery(); //쿼리를 실행한 결과를 rs에 저장
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					if(rs.getString(1).equals(userPassword)) {
-						return 1; //로그인 성공
+						return 1;
 					}else
-						return 0; //비밀번호 틀림
+						return 0;
 				}
-				return -1; //아이디 없음
+				return -1;
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-			return -2; //오류
+			return -2;
 		}
 		//회원가입 영역
 		public int join(User user) {
-			  String sql = "INSERT INTO USER (userId, userPassword, userName, userPhoneNumber, userTelType, userAddress, userDetailAddress, userEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+			  String sql = "INSERT INTO USER (userId, userPassword, userName, userPhoneNumber, "
+			  		+ "userTelType, userAddress, userDetailAddress, userEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 			  try {
 			    pstmt = conn.prepareStatement(sql);
 			    pstmt.setString(1, user.getUserId());

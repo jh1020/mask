@@ -28,7 +28,7 @@ public class ColorDAO {
 	public Vector<Color> getAllColor(int gubun){
 		Vector<Color> v = new Vector<>();
 		
-		String sql = "select title,price,gubun,gubun_title,img from color where gubun =?";
+		String sql = "select title,price,gubun,gubun_title,img,productinfoid from color where gubun =?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,gubun);
@@ -42,6 +42,7 @@ public class ColorDAO {
 				color.setGubun(rs.getInt(3));
 				color.setGubun_title(rs.getString(4));
 				color.setImg(rs.getString(5));
+				color.setProductinfoid(rs.getInt(6));
 				
 				v.add(color);
 			}

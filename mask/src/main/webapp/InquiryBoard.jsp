@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="review.ReviewDAO" %>
-<%@ page import="review.Review" %>
+<%@ page import="inquiry.*" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
@@ -109,14 +108,14 @@
 				</thead>
 				<tbody>
 					<%
-						ReviewDAO bbsDAO = new ReviewDAO(); // 인스턴스 생성
-						ArrayList<Review> list = bbsDAO.getList(pageNumber);
+						InquiryDAO bbsDAO = new InquiryDAO(); // 인스턴스 생성
+						ArrayList<Inquiry> list = bbsDAO.getList(pageNumber);
 						for(int i = 0; i < list.size(); i++){
 					%>
 					<tr>
 						<td><%= list.get(i).getBbsID() %></td>
 						<!-- 게시글 제목을 누르면 해당 글을 볼 수 있도록 링크를 걸어둔다 -->
-						<td><a href="ReviewView.jsp?bbsID=<%= list.get(i).getBbsID() %>">
+						<td><a href="InquiryView.jsp?bbsID=<%= list.get(i).getBbsID() %>">
 							<%= list.get(i).getBbsTitle() %></a></td>
 						<td><%= list.get(i).getUserId() %></td>
 						<td><%= list.get(i).getBbsdate().substring(0, 11) + list.get(i).getBbsdate().substring(11, 13) + ":"
@@ -132,19 +131,19 @@
 			<%
 				if(pageNumber != 1){
 			%>
-				<a href="ReviewBoard.jsp?pageNumber=<%=pageNumber - 1 %>"
+				<a href="InquiryBoard.jsp?pageNumber=<%=pageNumber - 1 %>"
 					class="btn btn-success btn-arraw-left">이전</a>
 			<%
 				}if(bbsDAO.nextPage(pageNumber + 1)){
 			%>
-				<a href="ReviewBoard.jsp?pageNumber=<%=pageNumber + 1 %>"
+				<a href="InquiryBoard.jsp?pageNumber=<%=pageNumber + 1 %>"
 					class="btn btn-success btn-arraw-left">다음</a>
 			<%
 				}
 			%>
 			
 			<!-- 글쓰기 버튼 생성 -->
-			<a href="ReviewWrite.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			<a href="InquiryWrite.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
 	<!-- 게시판 메인 페이지 영역 끝 -->

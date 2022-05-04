@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상세페이지</title>
 </head>
 
 <style>
@@ -55,9 +55,10 @@ color:green
 
 %>
 
-
-
-<a href="main.jsp" data-rel="external" id="main">메인화면으로 가기</a>
+	
+	<%if(info1.equals("1")){ %>
+	
+	<a href="main.jsp" data-rel="external" id="main">메인화면으로 가기</a>
 	<h2 align="center">브랜드</h2>
 	
 	<table border="1" width="1000" height="50" align ="center">
@@ -72,11 +73,66 @@ color:green
 	<th></th>
 	</table>
 	
+	
+	
+	<%}else if(info1.equals("2")) {%>
+	
+	<a href="main.jsp" data-rel="external" id="main">메인화면으로 가기</a>
+	<h2 align="center">마스크 색상</h2>
+	
+	<table border="1" width="1000" height="50" align ="center">
+		<th><a href="white.jsp">흰색</a> </th>
+		<th><a href="black.jsp">검정색</a> </th>
+		<th><a href="gray.jsp">회색</a> </th>
+		<th><a href="pink.jsp">핑크색</a> </th>
+		<th><a href="colorful.jsp">형광색</a> </th>
+		
+	</table>
+	
+	<table width="1000" height="100">
+	<th></th>
+	</table>
+	
+	<%} else if(info1.equals("3")){ %>
+	
+	<a href="main.jsp" data-rel="external" id="main">메인화면으로 가기</a>
+	<h2 align="center">마스크 사이즈</h2>
+	
+	<table border="1" width="1000" height="50" align ="center">
+		<th><a href="big.jsp">대형</a> </th>
+		<th><a href="medium.jsp">중형</a> </th>
+		<th><a href="small.jsp">소형</a> </th>
+		
+	</table>
+	
+	<table width="1000" height="100">
+	<th></th>
+	</table>
+	
+	<% }else if(info1.equals("4")){%>
+	
+	<a href="main.jsp" data-rel="external" id="main">메인화면으로 가기</a>
+	<h2 align="center">마스크 기능</h2>
+	
+	<table border="1" width="1000" height="50" align ="center">
+		<th><a href="bogun.jsp">보건용</a> </th>
+		<th><a href="bimal.jsp">비말 차단용</a> </th>
+		<th><a href="soosul.jsp">수술용</a> </th>
+		<th><a href="dental.jsp">덴털형</a> </th>
+	
+		
+	</table>
+	
+	<table width="1000" height="100">
+	<th></th>
+	</table>
+	
+	<%} %>
+	
 	<%
 	ProductinfoDAO productDAO= new ProductinfoDAO();
 	Vector<Productinfo> vec = productDAO.getAllProductinfo(1);
-	
-	Productinfo productinfo = vec.get();
+
 	%>
 	
 	
@@ -85,11 +141,11 @@ color:green
 <tr>
 <td rowspan="5"><image src="images/mask.jpg" width ="500" height= 500""></image></td>
 <td> 상품 이름</td>
-<td></td>
+<td><% %></td>
 </tr>
 <tr>
 <td>가격</td>
-<td> <%=productinfo.getprice() %></td>
+<td>
 </tr>
 <tr>
 <td>기능</td>

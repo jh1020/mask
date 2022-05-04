@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="review.ReviewDAO" %>
-<%@ page import="review.Review" %>
-<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +8,7 @@
 <meta name="viewport" content="width-device-width", initial-scale="1">
 <!-- 루트 폴더에 부트스트랩을 참조하는 링크 -->
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>JSP 게시판 웹 사이트</title>
-<style type="text/css">
-	a, a:hover{
-		color: #000000;
-		text-decoration: none;
-	}
-</style>
+<title>리뷰 게시판</title>
 </head>
 <body>
 	<%
@@ -26,12 +16,6 @@
 		String userId = null;
 		if(session.getAttribute("userId") != null){
 			userId = (String)session.getAttribute("userId");
-		}
-		int pageNumber = 1; //기본은 1 페이지를 할당
-		// 만약 파라미터로 넘어온 오브젝트 타입 'pageNumber'가 존재한다면
-		// 'int'타입으로 캐스팅을 해주고 그 값을 'pageNumber'변수에 저장한다
-		if(request.getParameter("pageNumber") != null){
-			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
 	%>
 	<nav class="navbar navbar-default"> <!-- 네비게이션 -->
@@ -68,7 +52,7 @@
 					<!-- 드랍다운 아이템 영역 -->	
 					<ul class="dropdown-menu">
 						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="signUp.jsp">회원가입</a></li>
+						<li><a href="join.jsp">회원가입</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -84,7 +68,7 @@
 						aria-expanded="false">회원관리<span class="caret"></span></a>
 					<!-- 드랍다운 아이템 영역 -->	
 					<ul class="dropdown-menu">
-						<li><a href="logout.jsp">로그아웃</a></li>
+						<li><a href="logoutAction.jsp">로그아웃</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -95,59 +79,31 @@
 	</nav>
 	<!-- 네비게이션 영역 끝 -->
 	
-	<!-- 게시판 메인 페이지 영역 시작 -->
+	<!-- 게시판 글쓰기 양식 영역 시작 -->
 	<div class="container">
 		<div class="row">
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<thead>
-					<tr>
-						<th style="background-color: #eeeeee; text-align: center;">번호</th>
-						<th style="background-color: #eeeeee; text-align: center;">제목</th>
-						<th style="background-color: #eeeeee; text-align: center;">작성자</th>
-						<th style="background-color: #eeeeee; text-align: center;">작성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-						ReviewDAO bbsDAO = new ReviewDAO(); // 인스턴스 생성
-						ArrayList<Review> list = bbsDAO.getList(pageNumber);
-						for(int i = 0; i < list.size(); i++){
-					%>
-					<tr>
-						<td><%= list.get(i).getBbsID() %></td>
-						<!-- 게시글 제목을 누르면 해당 글을 볼 수 있도록 링크를 걸어둔다 -->
-						<td><a href="ReviewView.jsp?bbsID=<%= list.get(i).getBbsID() %>">
-							<%= list.get(i).getBbsTitle() %></a></td>
-						<td><%= list.get(i).getUserId() %></td>
-						<td><%= list.get(i).getBbsdate().substring(0, 11) + list.get(i).getBbsdate().substring(11, 13) + ":"
-							+ list.get(i).getBbsdate().substring(14, 16)  %></td>
-					</tr>
-					<%
-						}
-					%>
-				</tbody>
-			</table>
-			
-			<!-- 페이징 처리 영역 -->
-			<%
-				if(pageNumber != 1){
-			%>
-				<a href="ReviewBoard.jsp?pageNumber=<%=pageNumber - 1 %>"
-					class="btn btn-success btn-arraw-left">이전</a>
-			<%
-				}if(bbsDAO.nextPage(pageNumber + 1)){
-			%>
-				<a href="ReviewBoard.jsp?pageNumber=<%=pageNumber + 1 %>"
-					class="btn btn-success btn-arraw-left">다음</a>
-			<%
-				}
-			%>
-			
-			<!-- 글쓰기 버튼 생성 -->
-			<a href="ReviewWrite.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			<form method="post" action="InquiryWriteAction.jsp">
+				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+					<thead>
+						<tr>
+							<th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글쓰기 양식</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
+						</tr>
+						<tr>
+							<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px;"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 글쓰기 버튼 생성 -->
+				<input type="submit" class="btn btn-primary pull-right" value="글쓰기">
+			</form>
 		</div>
 	</div>
-	<!-- 게시판 메인 페이지 영역 끝 -->
+	<!-- 게시판 글쓰기 양식 영역 끝 -->
 	
 	<!-- 부트스트랩 참조 영역 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

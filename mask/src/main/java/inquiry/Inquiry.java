@@ -1,7 +1,6 @@
-package review;
+package inquiry;
 
-public class Review {
-	
+public class Inquiry {
 	private int bbsID;
 	private String bbsTitle;
 	private String userId;
@@ -45,7 +44,5 @@ public class Review {
 	public void setBbsAvailable(String bbsAvailable) {
 		this.bbsAvailable = bbsAvailable;
 	}
-	
-	
-	
+
 }

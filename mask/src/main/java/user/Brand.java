@@ -8,8 +8,14 @@ public class Brand {
 	private int gubun;
 	private String gubun_title;
 	private String img;
+	private int productinfoid;
 	
-	
+	public int getProductinfoid() {
+		return productinfoid;
+	}
+	public void setProductinfoid(int productinfoid) {
+		this.productinfoid = productinfoid;
+	}
 	public int getId() {
 		return id;
 	}

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="review.ReviewDAO" %>
-<%@ page import="review.Review" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="inquiry.*" %>
+    
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +12,7 @@
 <meta name="viewport" content="width-device-width", initial-scale="1">
 <!-- 루트 폴더에 부트스트랩을 참조하는 링크 -->
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>JSP 게시판 웹 사이트</title>
-<style type="text/css">
-	a, a:hover{
-		color: #000000;
-		text-decoration: none;
-	}
-</style>
+<title>리뷰 게시판</title>
 </head>
 <body>
 	<%
@@ -27,12 +21,27 @@
 		if(session.getAttribute("userId") != null){
 			userId = (String)session.getAttribute("userId");
 		}
-		int pageNumber = 1; //기본은 1 페이지를 할당
-		// 만약 파라미터로 넘어온 오브젝트 타입 'pageNumber'가 존재한다면
-		// 'int'타입으로 캐스팅을 해주고 그 값을 'pageNumber'변수에 저장한다
-		if(request.getParameter("pageNumber") != null){
-			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		
+		// bbsID를 초기화 시키고
+		// 'bbsID'라는 데이터가 넘어온 것이 존재한다면 캐스팅을 하여 변수에 담는다
+		int bbsID = 0;
+		if(request.getParameter("bbsID") != null ) {
+			bbsID = Integer.parseInt(request.getParameter("bbsID"));
 		}
+		
+		// 만약 넘어온 데이터가 없다면
+		if(bbsID == 0) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alter('유효하지 않은 글입니다')");
+			script.println("location.href='InquiryBoard.jsp'");
+			script.println("</script>");
+		}
+		
+		//유효한 글이라면 구체적인 정보를 'bbs'라는 인스턴스에 담는다
+		Inquiry bbs = new InquiryDAO().getBbs(bbsID);
+		
+		
 	%>
 	<nav class="navbar navbar-default"> <!-- 네비게이션 -->
 		<div class="navbar-header"> 	<!-- 네비게이션 상단 부분 -->
@@ -52,8 +61,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="ReviewBoard.jsp">후기 게시판</a></li>
-				<li class="active"><a href="InquiryBoard.jsp">문의 게시판</a></li>
+				<li class="active"><a href="ReviewBoard.jsp">게시판</a></li>
 			</ul>
 			<%
 				// 로그인 하지 않았을 때 보여지는 화면
@@ -68,7 +76,7 @@
 					<!-- 드랍다운 아이템 영역 -->	
 					<ul class="dropdown-menu">
 						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="signUp.jsp">회원가입</a></li>
+						<li><a href="join.jsp">회원가입</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -84,7 +92,7 @@
 						aria-expanded="false">회원관리<span class="caret"></span></a>
 					<!-- 드랍다운 아이템 영역 -->	
 					<ul class="dropdown-menu">
-						<li><a href="logout.jsp">로그아웃</a></li>
+						<li><a href="logoutAction.jsp">로그아웃</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -95,59 +103,51 @@
 	</nav>
 	<!-- 네비게이션 영역 끝 -->
 	
-	<!-- 게시판 메인 페이지 영역 시작 -->
+	<!-- 게시판 글 보기 양식 영역 시작 -->
 	<div class="container">
 		<div class="row">
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr>
-						<th style="background-color: #eeeeee; text-align: center;">번호</th>
-						<th style="background-color: #eeeeee; text-align: center;">제목</th>
-						<th style="background-color: #eeeeee; text-align: center;">작성자</th>
-						<th style="background-color: #eeeeee; text-align: center;">작성일</th>
+						<th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글 보기</th>
 					</tr>
 				</thead>
 				<tbody>
-					<%
-						ReviewDAO bbsDAO = new ReviewDAO(); // 인스턴스 생성
-						ArrayList<Review> list = bbsDAO.getList(pageNumber);
-						for(int i = 0; i < list.size(); i++){
-					%>
 					<tr>
-						<td><%= list.get(i).getBbsID() %></td>
-						<!-- 게시글 제목을 누르면 해당 글을 볼 수 있도록 링크를 걸어둔다 -->
-						<td><a href="ReviewView.jsp?bbsID=<%= list.get(i).getBbsID() %>">
-							<%= list.get(i).getBbsTitle() %></a></td>
-						<td><%= list.get(i).getUserId() %></td>
-						<td><%= list.get(i).getBbsdate().substring(0, 11) + list.get(i).getBbsdate().substring(11, 13) + ":"
-							+ list.get(i).getBbsdate().substring(14, 16)  %></td>
+						<td style="width: 20%;">글 제목</td>
+						<td colspan="2"><%= bbs.getBbsTitle().replaceAll(" ", "&nbsp;")
+								.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
 					</tr>
-					<%
-						}
-					%>
+					<tr>
+						<td>작성자</td>
+						<td colspan="2"><%= bbs.getUserId() %></td>
+					</tr>
+					<tr>
+						<td>작성일자</td>
+						<td colspan="2"><%= bbs.getBbsdate().substring(0, 11) + bbs.getBbsdate().substring(11, 13) + ":"
+								+ bbs.getBbsdate().substring(14, 16) %></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td colspan="2" style="height: 200px; text-align: left;"><%= bbs.getBbsContent().replaceAll(" ", "&nbsp;")
+							.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
+					</tr>
 				</tbody>
 			</table>
+			<a href="InquiryBoard.jsp" class="btn btn-primary">목록</a>
 			
-			<!-- 페이징 처리 영역 -->
+			<!-- 해당 글의 작성자가 본인이라면 수정과 삭제가 가능하도록 코드 추가 -->
 			<%
-				if(pageNumber != 1){
+				if(userId != null && userId.equals(bbs.getUserId())){
 			%>
-				<a href="ReviewBoard.jsp?pageNumber=<%=pageNumber - 1 %>"
-					class="btn btn-success btn-arraw-left">이전</a>
-			<%
-				}if(bbsDAO.nextPage(pageNumber + 1)){
-			%>
-				<a href="ReviewBoard.jsp?pageNumber=<%=pageNumber + 1 %>"
-					class="btn btn-success btn-arraw-left">다음</a>
+					<a href="InquiryUpdate.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">수정</a>
+					<a onclick="return confirm('정말로 삭제하시겠습니까?')" href="InquiryDeleteAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">삭제</a>
 			<%
 				}
 			%>
-			
-			<!-- 글쓰기 버튼 생성 -->
-			<a href="ReviewWrite.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
-	<!-- 게시판 메인 페이지 영역 끝 -->
+	<!-- 게시판 글 보기 양식 영역 끝 -->
 	
 	<!-- 부트스트랩 참조 영역 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

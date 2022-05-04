@@ -32,7 +32,7 @@ public class BrandDAO {
 	public Vector<Brand> getAllBrand(int gubun){
 		Vector<Brand> v = new Vector<>();
 		
-		String sql = "select title,price,gubun,gubun_title,img from brand where gubun = ?";
+		String sql = "select title,price,gubun,gubun_title,img,productinfoid from brand where gubun = ?";
 		try {
 			pstmt = conn.prepareStatement(sql); //sql�������� ��� ��Ų��
 			pstmt.setInt(1, gubun); //ù��° '?'�� �Ű������� �޾ƿ� 'userID'�� ����
@@ -46,6 +46,7 @@ public class BrandDAO {
 				brand.setGubun(rs.getInt(3));
 				brand.setGubun_title(rs.getString(4));
 				brand.setImg(rs.getString(5));
+				brand.setProductinfoid(rs.getInt(6));
 				
 				v.add(brand);
 			}

@@ -137,8 +137,6 @@
     </form>
     <hr>
     <p class="find">
-        <span><a href="">아이디 찾기</a></span>
-        <span><a href="">비밀번호 찾기</a></span>
         <span><a href="signUp.jsp" >회원가입</a></span>
     </p>
     <p class="find">
